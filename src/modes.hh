@@ -9,6 +9,6 @@
 #include "fade.hh"
 #include "pulse.hh"
 #include "spectrum.hh"
-#include "trails.hh"
+#include "trails_sequential.hh"
 
 #endif //ARDUINO_LEDS_MODES_HH

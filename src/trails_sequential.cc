@@ -4,13 +4,14 @@
 
 #include <Adafruit_NeoPixel.h>
 #include <time.h>
-#include "trails.hh"
+#include "trails_sequential.hh"
 #include "macros.hh"
+#include "trails_common.hh"
 
 //region user
 #define TRAIL_COUNT 1
-#define TRAIL_LENGTH 50
-#define LOOP_TIME 2500
+#define TRAIL_LENGTH 5
+#define LOOP_TIME 15000
 
 #define UNORDERED_COLORS
 #define OPTION_NO_DOUBLE_COLORS
@@ -30,45 +31,38 @@ const uint8_t colors[][3] = {
 #define GAP (NUM_PIXELS / TRAIL_COUNT)
 static_assert(TRAIL_COUNT * TRAIL_LENGTH < NUM_PIXELS, "TRAILS WILL COLLIDE");
 
-typedef struct trail {
-    int head;
-    const uint8_t *color;
-} trail_t;
-
 void move_one_pos(Adafruit_NeoPixel &pixels, trail_t &trail);
 const uint8_t *get_new_color();
 
-trail_t _trails[TRAIL_COUNT + 1];
+trail_t _trails[TRAIL_COUNT];
 trail_t temp;
-boolean have_temp = false;
+boolean has_temp = false;
 
 int color_index = -1;
 
-#ifdef OPTION_NO_DOUBLE_COLORS
-int lastIndex = -1;
-#endif
-
-void trails_setup(Adafruit_NeoPixel &pixels) {
+void trails_sequential_setup(Adafruit_NeoPixel &pixels) {
     for (int i = 0; i < TRAIL_COUNT; i++) {
-        _trails[i] = trail_t { -i * GAP, get_new_color() };
+        _trails[i] = trail_t { -i * GAP, TRAIL_LENGTH, NUM_PIXELS, get_new_color() };
     }
     srand(time(nullptr));
 }
 
-void trails(Adafruit_NeoPixel &pixels) {
+void trails_sequential(Adafruit_NeoPixel &pixels) {
     for (int i = 0; i < TRAIL_COUNT; i++) {
         move_one_pos(pixels, _trails[i]);
         if (_trails[i].head == NUM_PIXELS) {
-            temp = trail_t { 0, get_new_color() };
-            have_temp = true;
+            temp = trail_t { 0, TRAIL_LENGTH, NUM_PIXELS, get_new_color() };
+            has_temp = true;
         }
         if (_trails[i].head - TRAIL_LENGTH == NUM_PIXELS) { //drop us
             _trails[i] = temp;
-            have_temp = false;
+            move_one_pos(pixels, temp);
+            temp.head++; //move the temp
+            has_temp = false;
         }
         _trails[i].head++;
     }
-    if (have_temp) {
+    if (has_temp) {
         move_one_pos(pixels, temp);
         temp.head++;
     }
@@ -76,22 +70,10 @@ void trails(Adafruit_NeoPixel &pixels) {
     delay(LOOP_TIME / NUM_PIXELS);
 }
 
-/**
- * Move a trail forward by 1 index. Does not apply configuration
- * @param pixels Neopixels object
- * @param head the (new) head
- */
-void move_one_pos(Adafruit_NeoPixel &pixels, trail_t &trail) {
-    if (trail.head < 0) return;
-    for (int i = TRAIL_LENGTH; i >= 0; i--) {
-        double percent = double(TRAIL_LENGTH - i) / TRAIL_LENGTH;
-        int expected_index = trail.head - i;
-        if (expected_index >= NUM_PIXELS) continue;
-        SET_COLOR(pixels, unsigned(expected_index), percent * trail.color[0], percent * trail.color[1], percent * trail.color[2]);
-    }
-}
-
 const uint8_t *get_new_color() {
+#ifdef OPTION_NO_DOUBLE_COLORS
+    static int last_index = -1;
+#endif
 #if defined(ORDERED_COLORS)
     if (color_index >= (sizeof(colors) / sizeof(colors[0])) - 1) {
         color_index = -1;
@@ -101,10 +83,10 @@ const uint8_t *get_new_color() {
 #elif defined(UNORDERED_COLORS)
 #ifdef OPTION_NO_DOUBLE_COLORS
     int index = rand() % (sizeof(colors) / sizeof(colors[0])) + 0;
-    while (index == lastIndex) {
+    while (index == last_index) {
         index = rand() % (sizeof(colors) / sizeof(colors[0])) + 0;
     }
-    lastIndex = index;
+    last_index = index;
     return colors[index];
 #else
     return colors[rand() % (sizeof(colors) / sizeof(colors[0])) + 0];

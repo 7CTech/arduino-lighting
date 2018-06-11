@@ -22,13 +22,13 @@ void breathe_setup(Adafruit_NeoPixel &pixels) {
 
 }
 
-int color_pos = 0;
-bool direction = true;
-int step = 0;
-
 void breathe(Adafruit_NeoPixel &pixels) {
+    static int color_pos = 0;
+    static bool forward = true;
+    static int step = 0;
+
     double percent;
-    if (direction) {
+    if (forward) {
         percent = (double(step) / STEPS);
         delay(TIME_IN / STEPS);
     }
@@ -41,10 +41,10 @@ void breathe(Adafruit_NeoPixel &pixels) {
     }
     pixels.show();
 
-    if (step / STEPS == 1) {
+    if (step == STEPS) {
         step = -1;
-        direction = !direction;
-        if (direction) {
+        forward = !forward;
+        if (forward) {
             color_pos++;
             if (color_pos == sizeof(colors) / sizeof(colors[0])) color_pos = 0;
             delay(TIME_OFF);

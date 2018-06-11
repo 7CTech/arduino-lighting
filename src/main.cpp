@@ -16,7 +16,7 @@ void setup() {
 
     pixels.show();
 
-    trails_setup(pixels);
+    trails_sequential_setup(pixels);
 }
 #pragma clang diagnostic pop
 
@@ -24,6 +24,6 @@ void setup() {
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 void loop() {
-    trails(pixels);
+    trails_sequential(pixels);
 }
 #pragma clang diagnostic pop
