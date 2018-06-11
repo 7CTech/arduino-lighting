@@ -38,3 +38,4 @@ CMakeListsPrivate.txt
 
 # CLion
 .idea/
+cmake-build-*/
