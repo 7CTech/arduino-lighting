@@ -14,9 +14,11 @@ void setup() {
         SET_COLOR(pixels, i, 0, 0, 0);
     }
 
+    randomSeed(analogRead(0));
+
     pixels.show();
 
-    trails_sequential_setup(pixels);
+    //trails_sequential_setup(pixels);
 }
 #pragma clang diagnostic pop
 
@@ -24,6 +26,6 @@ void setup() {
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 void loop() {
-    trails_sequential(pixels);
+    breathe(pixels);
 }
 #pragma clang diagnostic pop

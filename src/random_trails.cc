@@ -20,7 +20,7 @@
 int indices[MAX_TRAILS][3];
 
 void random_trails_setup(Adafruit_NeoPixel &pixels) {
-    srand(time(nullptr));
+
 }
 
 void random_trails(Adafruit_NeoPixel &pixels) {
@@ -32,7 +32,7 @@ void random_trails(Adafruit_NeoPixel &pixels) {
  * @return
  */
 boolean get_direction() {
-    return static_cast<boolean>(rand() % 2 + 0);
+    return static_cast<boolean>(random(2));
 }
 
 int get_dist() {

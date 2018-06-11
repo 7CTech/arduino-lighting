@@ -10,7 +10,9 @@
 #define DELAY 1
 //endregion
 
-void spectrum_setup(Adafruit_NeoPixel &pixels);
+void spectrum_setup(Adafruit_NeoPixel &pixels) {
+
+}
 
 void spectrum(Adafruit_NeoPixel &pixels) {
     uint8_t rgb_color[] = { 255, 0, 0 };

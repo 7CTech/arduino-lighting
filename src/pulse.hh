@@ -5,7 +5,7 @@
 #ifndef ARDUINO_LEDS_PULSE_HH
 #define ARDUINO_LEDS_PULSE_HH
 
-#include "../lib/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
+#include <Adafruit_NeoPixel.h>
 
 
 void pulse_setup(Adafruit_NeoPixel &pixels);
