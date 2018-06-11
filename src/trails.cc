@@ -3,16 +3,18 @@
 //
 
 #include <Adafruit_NeoPixel.h>
+#include <time.h>
 #include "trails.hh"
 #include "macros.hh"
 
 //region user
-#define TRAIL_COUNT 10
-#define TRAIL_LENGTH 5
-#define LOOP_TIME 4000
+#define TRAIL_COUNT 1
+#define TRAIL_LENGTH 50
+#define LOOP_TIME 2500
 
-//#define UNORDERED_COLORS
-#define ORDERED_COLORS
+#define UNORDERED_COLORS
+#define OPTION_NO_DOUBLE_COLORS
+//#define ORDERED_COLORS
 
 #if defined(UNORDERED_COLORS) && defined(ORDERED_COLORS)
 static_assert(false, "ORDERED AND UNORDERED");
@@ -42,10 +44,15 @@ boolean have_temp = false;
 
 int color_index = -1;
 
+#ifdef OPTION_NO_DOUBLE_COLORS
+int lastIndex = -1;
+#endif
+
 void trails_setup(Adafruit_NeoPixel &pixels) {
     for (int i = 0; i < TRAIL_COUNT; i++) {
         _trails[i] = trail_t { -i * GAP, get_new_color() };
     }
+    srand(time(nullptr));
 }
 
 void trails(Adafruit_NeoPixel &pixels) {
@@ -92,5 +99,16 @@ const uint8_t *get_new_color() {
     color_index++;
     return colors[color_index];
 #elif defined(UNORDERED_COLORS)
+#ifdef OPTION_NO_DOUBLE_COLORS
+    int index = rand() % (sizeof(colors) / sizeof(colors[0])) + 0;
+    while (index == lastIndex) {
+        index = rand() % (sizeof(colors) / sizeof(colors[0])) + 0;
+    }
+    lastIndex = index;
+    return colors[index];
+#else
+    return colors[rand() % (sizeof(colors) / sizeof(colors[0])) + 0];
+#endif
+
 #endif
 }
