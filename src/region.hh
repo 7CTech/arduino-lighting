@@ -29,7 +29,10 @@ public:
 
 private:
     Adafruit_NeoPixel &pixels;
-    pt_sem effectSem;
+    pt_sem *effectSem;
     Color base;
+    void *owner;
     friend class Effect;
+    bool claim(void *me);
+    bool free(void *me);
 };

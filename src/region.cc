@@ -3,13 +3,16 @@
 //
 
 #include <Adafruit_NeoPixel.h>
+#include <alloca.h>
 
 #include "color.hh"
 #include "region.hh"
 
 Region::Region(Adafruit_NeoPixel &pixels, uint16_t minIndex, uint16_t maxIndex) :
-        minIndex(minIndex), maxIndex(maxIndex), pixels(pixels), effectSem(pt_sem{}), base(Color(0, 0, 0)) {
-    PT_SEM_INIT(&effectSem, 1);
+        minIndex(minIndex), maxIndex(maxIndex), pixels(pixels), base(Color(0, 0, 0)) {
+    effectSem = alloca(sizeof(pt_sem));
+    PT_SEM_INIT(effectSem, 1);
+    owner = nullptr;
 }
 
 void Region::set(const uint16_t regionIndex, const uint8_t r, const uint8_t g, const uint8_t b) {
@@ -49,6 +52,23 @@ void Region::clear() {
     for (uint16_t i = 0; i < size; i++) {
         set(i, base);
     }
+}
+
+bool Region::claim(void *me) {
+    if (owner == me) return true;
+    if ((effectSem)->count <= 0) return false;
+    owner = me;
+    --(effectSem)->count;
+    return true;
+}
+
+bool Region::free(void *me) {
+    if (owner == me) {
+        owner = nullptr;
+        ++(effectSem)->count;
+        return true;
+    }
+    return false;
 }
 
 

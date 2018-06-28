@@ -8,13 +8,16 @@
 
 class Waiter {
 public:
-    explicit Waiter(double ms) : ms(ms) { }
+    explicit Waiter(uint32_t ms) : ms(ms) { }
 
     bool hasWaited() {
-        return ms - (double(start)/1000) <= 0;
+
+        Serial.print(F("HAS"));
+        Serial.println(start);
+        return (ms * 1000) + start <= micros();
     }
 
 private:
-    double ms;
+    uint32_t ms;
     uint32_t start = micros();
 };

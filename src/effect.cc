@@ -1,28 +1,33 @@
 //
 // Created by ctech on 26/06/18.
 //
+#include <Arduino.h>
+
 
 #include "effect.hh"
 
 
 Effect::Effect(Region &region) : region(region), w(Waiter(0)) {
-
+    delay = 1;
 }
 
 #ifdef __CLION_IDE__
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "missing_default_case"
 #endif
-const int Effect::run(struct pt *proto) {
+const PT_THREAD(Effect::run(struct pt *proto)) {
     PT_BEGIN(proto);
-    PT_SEM_WAIT(proto, &region.effectSem);
-    int16_t delay;
-    while ((delay = loop()) > 0) {
+    while (true) {
+        PT_YIELD_UNTIL(proto, region.claim(this));
+        Serial.println(F("CLAIMED"));
+        PT_YIELD_UNTIL(proto, w.hasWaited());
+        delay = loop();
         w = Waiter(unsigned(delay));
-        PT_WAIT_UNTIL(proto, w.hasWaited());
+        Serial.println(delay);
     }
-    PT_SEM_SIGNAL(proto, &region.effectSem);
+    region.free(this);
     PT_END(proto);
+
 }
 #ifdef __CLION_IDE__
 #pragma clang diagnostic pop

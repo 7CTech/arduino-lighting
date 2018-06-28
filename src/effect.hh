@@ -23,7 +23,7 @@ public:
     virtual void init() = 0;
     virtual int16_t loop() = 0;
 
-    const int run(struct pt *proto);
+    const PT_THREAD(run(struct pt *proto));
     const void kill();
 
 protected:
@@ -31,4 +31,5 @@ protected:
 
 private:
     Waiter w;
+    int16_t delay;
 };

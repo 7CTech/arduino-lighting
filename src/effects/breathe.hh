@@ -9,7 +9,7 @@
 #include "../effect.hh"
 #include "../color.hh"
 
-class Breathe : Effect {
+class Breathe : public Effect {
     public:
         explicit Breathe(Region &region, uint8_t steps = 60, uint16_t timeIn = 250, uint16_t timeOut = 250, uint16_t timeOff = 100);
         void init() override;

@@ -6,9 +6,9 @@
 
 #include <Arduino.h>
 
-#define UNORDERED_COLORS
-#define OPTION_NO_DOUBLE_COLORS
-//#define ORDERED_COLORS
+//#define UNORDERED_COLORS
+//#define OPTION_NO_DOUBLE_COLORS
+#define ORDERED_COLORS
 //#define RANDOM_COLORS
 
 #if defined(UNORDERED_COLORS) + defined(ORDERED_COLORS) + defined(RANDOM_COLORS) > 1

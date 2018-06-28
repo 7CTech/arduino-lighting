@@ -14,5 +14,5 @@ public:
 private:
     uint8_t decColor;
     uint8_t incColor;
-    uint8_t iColorIndex;
+    int16_t iColorIndex;
 };

@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <pt.h>
 #include <effects/spectrum_cycle.hh>
+#include <effects/static_color.hh>
 
 #include "effects/breathe.hh"
 #include "region.hh"
@@ -18,20 +19,23 @@
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUM_PIXELS, PIN, NEO_GRB + NEO_KHZ800);
 Region half = Region(pixels, 0, 29);
 Region half2 = Region(pixels, 30, 60);
-SpectrumCycle cycle = SpectrumCycle(half, {255, 0, 0});
-SpectrumCycle cycle2 = SpectrumCycle(half, {0, 255, 0});
+SpectrumCycle cycle1 = SpectrumCycle(half, Color(255, 0, 0), 1);
+Breathe breathe2 = Breathe(half2);
 
-pt proto;
+pt proto1, proto2;
 
 void setup() {
-    Serial.begin(9600);
     pixels.begin();
+    Serial.begin(9600);
     //clear
     for (uint16_t i = 0; i < NUM_PIXELS; i++) {
-        pixels.setPixelColor(i, 0, 0, 0);
+        pixels.setPixelColor(i, 100, 100, 100);
     }
+    pixels.show();
     randomSeed(static_cast<unsigned long>(analogRead(0)));
-    PT_INIT(&proto);
+    PT_INIT(&proto1);
+    PT_INIT(&proto2);
+    Serial.println(F("Setup"));
 }
 #ifdef __CLION_IDE__
 #pragma clang diagnostic pop
@@ -42,8 +46,11 @@ void setup() {
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #endif
 void loop() {
-    cycle.run(&proto);
-    cycle2.run(&proto);
+    PT_SCHEDULE(cycle1.run(&proto1));
+    PT_SCHEDULE(breathe2.run(&proto2));
+    Serial.println(F("Showing"));
+    pixels.show();
+    Serial.println(F("Shown"));
 }
 #ifdef __CLION_IDE__
 #pragma clang diagnostic pop

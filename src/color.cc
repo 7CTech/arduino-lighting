@@ -17,14 +17,14 @@ Color::Color(uint8_t *rgb) : Color(rgb[0], rgb[1], rgb[2]) {
 Color::Color()  {
 #if defined(ORDERED_COLORS)
     static int color_index = -1;
-        if (color_index >= (sizeof(colors) / sizeof(colors[0])) - 1) {
+        if (color_index >= 0 && unsigned(color_index) >= (sizeof(colors) / sizeof(colors[0])) - 1) {
             color_index = -1;
         }
         color_index++;
         const uint8_t *color = colors[color_index];
         r = color[0];
         g = color[1];
-        b = color[2];s
+        b = color[2];
 #elif defined(UNORDERED_COLORS)
 #ifdef OPTION_NO_DOUBLE_COLORS
     auto index = static_cast<int>(random(sizeof(colors) / sizeof(colors[0])));
