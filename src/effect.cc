@@ -17,9 +17,8 @@ Effect::Effect(Region &region) : region(region), w(Waiter(0)) {
 #endif
 const PT_THREAD(Effect::run(struct pt *proto)) {
     PT_BEGIN(proto);
-    while (true) {
+    while (delay > 0) {
         PT_YIELD_UNTIL(proto, region.claim(this));
-        Serial.println(F("CLAIMED"));
         PT_YIELD_UNTIL(proto, w.hasWaited());
         delay = loop();
         w = Waiter(unsigned(delay));

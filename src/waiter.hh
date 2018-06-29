@@ -11,9 +11,6 @@ public:
     explicit Waiter(uint32_t ms) : ms(ms) { }
 
     bool hasWaited() {
-
-        Serial.print(F("HAS"));
-        Serial.println(start);
         return (ms * 1000) + start <= micros();
     }
 

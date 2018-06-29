@@ -48,9 +48,7 @@ void setup() {
 void loop() {
     PT_SCHEDULE(cycle1.run(&proto1));
     PT_SCHEDULE(breathe2.run(&proto2));
-    Serial.println(F("Showing"));
     pixels.show();
-    Serial.println(F("Shown"));
 }
 #ifdef __CLION_IDE__
 #pragma clang diagnostic pop
