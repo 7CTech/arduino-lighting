@@ -35,6 +35,7 @@
 .pioenvs
 .piolibdeps
 CMakeListsPrivate.txt
+CMakeLists.txt
 
 # CLion
 .idea/
