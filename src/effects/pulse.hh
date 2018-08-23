@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "color.hh"
-#include "effect.hh"
+#include <color.hh>
+#include <effect.hh>
 
 class Pulse : Effect {
     public:

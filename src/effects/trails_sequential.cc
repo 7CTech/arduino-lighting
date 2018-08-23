@@ -1,7 +1,6 @@
 //
 // Created by ctech on 23/06/18.
 //
-#include <alloca.h>
 
 #include "trails_sequential.hh"
 

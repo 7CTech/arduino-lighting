@@ -11,7 +11,7 @@ public:
     explicit Waiter(int16_t ms) : ms(ms) { }
 
     bool hasWaited() {
-        return ((unsigned long)(ms * 1000)) + start <= micros();
+        return ms * 1000 + start <= micros();
     }
 
 private:

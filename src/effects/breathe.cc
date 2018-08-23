@@ -5,7 +5,6 @@
 #include <alloca.h>
 
 #include "breathe.hh"
-#include "color.hh"
 
 Breathe::Breathe(Region &region, uint8_t steps, uint16_t timeIn, uint16_t timeOut, uint16_t timeOff) :
         Effect(region), steps(steps), timeIn(timeIn), timeOut(timeOut), timeOff(timeOff) {

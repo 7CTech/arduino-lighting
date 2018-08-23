@@ -2,7 +2,6 @@
 // Created by ctech on 10/06/18.
 //
 #include "spectrum_cycle.hh"
-#include "color_cycling.hh"
 
 SpectrumCycle::SpectrumCycle(Region &region, Color baseColor, int16_t loopTime) :
         Effect(region), base(baseColor), active(baseColor), loopTime(loopTime) {

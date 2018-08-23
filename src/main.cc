@@ -1,14 +1,10 @@
 #include <WS2812.h>
 #include <Arduino.h>
 #include <pt.h>
-#include <effects/spectrum_cycle.hh>
-#include <effects/static_color.hh>
-#include <effects/trails_sequential.hh>
 
-#include "effects/breathe.hh"
 #include "region.hh"
-#include "effects/trail_basic.hh"
 
+#include "effects/effects.hh"
 
 /*
  * This code has about 3ms control loop cycles. Trying to use smaller delays will have no effect.

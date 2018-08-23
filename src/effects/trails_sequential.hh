@@ -15,7 +15,6 @@ public:
 
     void init() override;
     int16_t loop() override;
-
 private:
     const uint16_t trailLength;
     const uint16_t trailCount;

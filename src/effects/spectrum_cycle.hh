@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "../color.hh"
-#include "../color_cycling.hh"
-#include "../effect.hh"
+#include <color.hh>
+#include <color_cycling.hh>
+#include <effect.hh>
 
 class SpectrumCycle : public Effect {
 public:

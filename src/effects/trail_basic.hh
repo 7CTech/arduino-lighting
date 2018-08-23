@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "../color.hh"
-#include "../effect.hh"
+#include <color.hh>
+#include <effect.hh>
 
 /**
  * A singular trail, that will move the length of a region. This is an effect, but doesn't need to act as so. It can instaniated directly
