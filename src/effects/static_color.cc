@@ -13,7 +13,6 @@ void StaticColor::init() {
 }
 
 int16_t StaticColor::loop() {
-    Serial.println("loop");
     for (uint16_t i = 0; i < region.size; i++) {
         region.set(i, color);
     }

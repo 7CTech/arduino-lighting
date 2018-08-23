@@ -23,7 +23,7 @@ void Breathe::init() {
 
 int16_t Breathe::loop() {
     double percent;
-    uint16_t totalDelay = 0;
+    int16_t totalDelay = 0;
     if (fadingIn) {
         percent = (double(step) / steps);
     } else {
@@ -42,7 +42,7 @@ int16_t Breathe::loop() {
         }
     }
     if (fadingIn) {
-        totalDelay += timeIn/steps;
+        totalDelay += timeIn / steps;
     } else {
         totalDelay += timeOut / steps;
     }

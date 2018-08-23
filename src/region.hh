@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <Adafruit_NeoPixel.h>
+#include <WS2812.h>
 #include <pt-sem.h>
 
 #include "color.hh"
@@ -16,7 +16,7 @@ public:
     const uint16_t maxIndex;
     const uint16_t size = maxIndex - minIndex + 1;
 
-    explicit Region(Adafruit_NeoPixel &pixels, uint16_t minIndex, uint16_t maxIndex);
+    explicit Region(WS2812 &leds, uint16_t minIndex, uint16_t maxIndex);
 
     void set(uint16_t regionIndex, uint8_t r, uint8_t g, uint8_t b);
     void set(uint16_t regionIndex, const Color &color);
@@ -28,8 +28,7 @@ public:
     void clear();
 
 private:
-    Adafruit_NeoPixel &pixels;
-    pt_sem *effectSem;
+    WS2812 &leds;
     Color base;
     void *owner;
     friend class Effect;

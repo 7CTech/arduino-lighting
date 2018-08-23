@@ -4,14 +4,13 @@
 
 #include <Adafruit_NeoPixel.h>
 #include <alloca.h>
+#include <WS2812.h>
 
 #include "color.hh"
 #include "region.hh"
 
-Region::Region(Adafruit_NeoPixel &pixels, uint16_t minIndex, uint16_t maxIndex) :
-        minIndex(minIndex), maxIndex(maxIndex), pixels(pixels), base(Color(0, 0, 0)) {
-    effectSem = alloca(sizeof(pt_sem));
-    PT_SEM_INIT(effectSem, 1);
+Region::Region(WS2812 &leds, uint16_t minIndex, uint16_t maxIndex) :
+        minIndex(minIndex), maxIndex(maxIndex), leds(leds), base(Color(0, 0, 0)) {
     owner = nullptr;
 }
 
@@ -22,7 +21,7 @@ void Region::set(const uint16_t regionIndex, const uint8_t r, const uint8_t g, c
         return;
     }
 
-    pixels.setPixelColor(minIndex + regionIndex, r, g, b);
+    leds.set_crgb_at(minIndex + regionIndex, { g, r, b } );
 }
 
 void Region::set(const uint16_t regionIndex, const Color &color) {
@@ -56,16 +55,16 @@ void Region::clear() {
 
 bool Region::claim(void *me) {
     if (owner == me) return true;
-    if ((effectSem)->count <= 0) return false;
-    owner = me;
-    --(effectSem)->count;
-    return true;
+    if (owner == nullptr) {
+        owner = me;
+        return true;
+    }
+    return false;
 }
 
 bool Region::free(void *me) {
     if (owner == me) {
         owner = nullptr;
-        ++(effectSem)->count;
         return true;
     }
     return false;

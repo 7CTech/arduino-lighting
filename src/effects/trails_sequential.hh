@@ -4,11 +4,13 @@
 
 #pragma once
 
+#include <Arduino.h>
+#include <alloca.h>
 #include <Adafruit_NeoPixel.h>
 
 #include "trail_basic.hh"
 
-class TrailsSequential : Effect {
+class TrailsSequential : public Effect {
 public:
     explicit TrailsSequential(Region &region, uint16_t trailLength, uint16_t trailCount, uint16_t loopTime);
 
@@ -20,5 +22,5 @@ private:
     const uint16_t trailCount;
     const uint16_t trailGap;
     const uint16_t loopTime;
-    TrailBasic *trails = alloca(trailCount * sizeof(TrailBasic)); //note to future idiotic self: don't try change this.
+    TrailBasic *trails = (TrailBasic *)alloca(trailCount * sizeof(TrailBasic)); //note to future idiotic self: don't try change this.
 };
