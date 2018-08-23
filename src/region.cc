@@ -2,7 +2,6 @@
 // Created by ctech on 24/06/18.
 //
 
-#include <Adafruit_NeoPixel.h>
 #include <alloca.h>
 #include <WS2812.h>
 

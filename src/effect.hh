@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <Adafruit_NeoPixel.h>
 #include <pt.h>
 #include <pt-sem.h>
 

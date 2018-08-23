@@ -2,8 +2,6 @@
 // Created by ctech on 21/06/18.
 //
 
-#include <Adafruit_NeoPixel.h>
-
 #include "trail_basic.hh"
 
 TrailBasic::TrailBasic(Region &region, uint16_t length, Color color, bool forward, uint16_t loopTime) :

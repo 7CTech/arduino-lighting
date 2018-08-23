@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "../../lib/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
-
 #include "../color.hh"
 #include "../effect.hh"
 

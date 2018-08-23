@@ -6,7 +6,6 @@
 
 #include <Arduino.h>
 #include <alloca.h>
-#include <Adafruit_NeoPixel.h>
 
 #include "trail_basic.hh"
 

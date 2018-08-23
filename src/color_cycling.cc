@@ -18,9 +18,8 @@ void ColorCycling::cycle() {
     --(*this)[decColor];
     ++(*this)[incColor];
 
-
     ++iColorIndex;
-    if (iColorIndex == 255) {
+    if (iColorIndex >= 255) {
         decColor = uint8_t(decColor == 2 ? 0 : decColor + 1);
         incColor = uint8_t(decColor == 2 ? 0 : decColor + 1);
         iColorIndex = 0;

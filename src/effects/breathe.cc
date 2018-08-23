@@ -2,7 +2,6 @@
 // Created by ctech on 20/06/18.
 //
 
-#include <Adafruit_NeoPixel.h>
 #include <alloca.h>
 
 #include "breathe.hh"
@@ -19,7 +18,6 @@ Breathe::Breathe(Region &region, uint8_t steps, uint16_t timeIn, uint16_t timeOu
 }
 
 void Breathe::init() {
-
     step = 0;
     color = Color();
     fadingIn = true;

@@ -10,11 +10,11 @@
 
 class SpectrumCycle : public Effect {
 public:
-    explicit SpectrumCycle(Region &region, Color base, int16_t delay = 1);
+    explicit SpectrumCycle(Region &region, Color base, int16_t loopTime = 1000);
     void init() override;
     int16_t loop() override;
 private:
     const Color base;
     ColorCycling active;
-    const int16_t delay;
+    const int16_t loopTime;
 };
