@@ -10,12 +10,16 @@
 
 Breathe::Breathe(Region &region, uint8_t steps, uint16_t timeIn, uint16_t timeOut, uint16_t timeOff) :
         Effect(region), steps(steps), timeIn(timeIn), timeOut(timeOut), timeOff(timeOff) {
+    if (steps > timeIn || steps > timeOut) {
+        timeIn > timeOut ? (*this).steps = static_cast<uint8_t>(timeOut) : (*this).steps = static_cast<uint8_t>(timeIn);
+    }
     step = -1;
     fadingIn = false;
 
 }
 
 void Breathe::init() {
+
     step = 0;
     color = Color();
     fadingIn = true;

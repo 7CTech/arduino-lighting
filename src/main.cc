@@ -26,7 +26,7 @@ Region half = Region(leds, 0, 29);
 Region half2 = Region(leds, 30, 60);
 
 SpectrumCycle purple(half, Color(255, 0, 0), 1);
-Breathe green(half2, 50, 50, 50, 0);//, Color(0, 128, 0), 50);
+Breathe green(half2, 50, 49, 50, 0);//, Color(0, 128, 0), 50);
 
 pt proto1, proto2;
 
@@ -49,6 +49,8 @@ void setup() {
     randomSeed(static_cast<unsigned long>(analogRead(0)));
     PT_INIT(&proto1);
     PT_INIT(&proto2);
+    purple.init();
+    green.init();
 }
 #ifdef __CLION_IDE__
 #pragma clang diagnostic pop

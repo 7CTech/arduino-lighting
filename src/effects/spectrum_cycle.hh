@@ -10,7 +10,7 @@
 
 class SpectrumCycle : public Effect {
 public:
-    explicit SpectrumCycle(Region &region, Color base, double delay = 1);
+    explicit SpectrumCycle(Region &region, Color base, int16_t delay = 1);
     void init() override;
     int16_t loop() override;
 private:
