@@ -2,25 +2,46 @@
 // Created by ctech on 10/06/18.
 //
 #include "spectrum_cycle.hh"
+#include <global.hh>
 
-SpectrumCycle::SpectrumCycle(Region &region, Color baseColor, int16_t loopTime) :
-        Effect(region), base(baseColor), active(baseColor), loopTime(loopTime) {
+#define FADE
+
+SpectrumCycle::SpectrumCycle(Region &region, Color baseColor, uint16_t loopTime, uint16_t fadeTime) :
+        Effect(region), base(baseColor), active(baseColor), loopTime(loopTime), fadeTime(fadeTime), curFade(-1), fadingIn(false) {
 
 }
 
 void SpectrumCycle::init() {
     active = base; //copy
+    curFade = 1;
+    fadingIn = false;
 }
 
 int16_t SpectrumCycle::loop() {
-    const double idealStep = (double)loopTime/(256^3);
-    if (idealStep < 1) {
-        for (int i = 0; i < idealStep; i++) {
-            active.cycle();
-        }
+    const double idealDelay = double(loopTime)/(255 * 3);
+    //Serial.println(idealDelay);
+    if (idealDelay < SLOWNESS) {
+        active.cycle(SLOWNESS/idealDelay);
+    } else {
+        active.cycle();
     }
+    if (fadingIn) {
+        curFade += (double(SLOWNESS)/fadeTime);
+        if (curFade > 1) curFade = 1;
+    } else {
+        curFade -= (double(SLOWNESS)/fadeTime);
+        if (curFade < 0) curFade = 0;
+    }
+    if (curFade <= 0 || curFade >= 1) {
+        fadingIn = !fadingIn;
+    }
+
     for (uint16_t i = 0; i < region.size; i++) {
+#ifdef FADE
+        region.set(i, active, curFade);
+#else
         region.set(i, active);
+#endif
     }
-    return (int16_t) (idealStep < 1 ? 1 : idealStep);
+    return (int16_t) (idealDelay < 1 ? 1 : idealDelay);
 }

@@ -26,4 +26,26 @@ void ColorCycling::cycle() {
     }
 }
 
+void ColorCycling::cycle(uint8_t increment) {
+    if ((*this)[decColor] >= increment) {
+        (*this)[decColor] -= increment;
+        (*this)[incColor] += increment;
+        iColorIndex += increment;
+        if (iColorIndex > 255) {
+            decColor = uint8_t(decColor == 2 ? 0 : decColor + 1);
+            incColor = uint8_t(decColor == 2 ? 0 : decColor + 1);
+            iColorIndex = 0;
+        }
+    } else {
+        const uint8_t incrementPart = increment - (*this)[decColor];
+        (*this)[decColor] -= (increment - incrementPart);
+        (*this)[incColor] += (increment - incrementPart);
+        decColor = uint8_t(decColor == 2 ? 0 : decColor + 1);
+        incColor = uint8_t(decColor == 2 ? 0 : decColor + 1);
+        iColorIndex = incrementPart;
+        (*this)[decColor] -= (incrementPart);
+        (*this)[incColor] += (incrementPart);
+    }
+}
+
 

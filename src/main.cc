@@ -23,8 +23,8 @@ Region full(leds, 0, 60);
 Region half = Region(leds, 0, 29);
 Region half2 = Region(leds, 30, 60);
 
-SpectrumCycle purple(half, Color(255, 0, 0), 1000);
-Breathe green(half2, 50, 50, 50, 0);//, Color(0, 128, 0), 50);
+SpectrumCycle purple(full, Color(255, 0, 0), 1000, 400);
+//Breathe green(half2, 50, 50, 50, 0);//, Color(0, 128, 0), 50);
 
 pt proto1, proto2;
 
@@ -46,7 +46,7 @@ void setup() {
     PT_INIT(&proto1);
     PT_INIT(&proto2);
     purple.init();
-    green.init();
+    //green.init();
 }
 #ifdef __CLION_IDE__
 #pragma clang diagnostic pop
@@ -57,8 +57,9 @@ void setup() {
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #endif
 void loop() {
+    Serial.println(millis());
     PT_SCHEDULE(purple.run(&proto1));
-    PT_SCHEDULE(green.run(&proto2));
+    //PT_SCHEDULE(green.run(&proto2));
     leds.sync();
 }
 #ifdef __CLION_IDE__
