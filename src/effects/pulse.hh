@@ -11,7 +11,7 @@ class Pulse : Effect {
     public:
         explicit Pulse(Region &region, uint8_t steps = 60, uint16_t timeOut = 100, uint16_t timeOff = 0);
         void init() override;
-        int16_t loop() override;
+        uint64_t loop() override;
     private:
         uint8_t steps;
         uint16_t timeOut;

@@ -22,16 +22,16 @@ void Breathe::init() {
     fadingIn = true;
 }
 
-int16_t Breathe::loop() {
+uint64_t Breathe::loop() {
     double percent;
-    int16_t totalDelay = 0;
+    uint64_t totalDelay = 0;
     if (fadingIn) {
         percent = (double(step) / steps);
     } else {
         percent = ((steps - double(step)) / steps);
     }
     for (uint16_t i = 0; i < region.size; i++) {
-        region.set(i, color, percent);
+        region.set(i, color * percent);
     }
 
     if (step == steps) {

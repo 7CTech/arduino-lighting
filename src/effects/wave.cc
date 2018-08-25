@@ -12,6 +12,6 @@ void Wave::init() {
 
 }
 
-int16_t Wave::loop() {
+uint64_t Wave::loop() {
     return 0;
 }

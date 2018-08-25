@@ -13,12 +13,12 @@ void Pulse::init() {
     color = Color();
 }
 
-int16_t Pulse::loop() {
+uint64_t Pulse::loop() {
     double percent = ((steps - double(step)) / steps);
-    int16_t totalDelay = 0;
+    uint64_t totalDelay = 0;
 
     for (uint16_t i = 0; i < region.size; i++) {
-        region.set(i, color, percent);
+        region.set(i, color * percent);
     }
 
     if (step == steps) {

@@ -8,13 +8,13 @@
 
 class Waiter {
 public:
-    explicit Waiter(int16_t ms) : ms(ms) { }
+    explicit Waiter(uint64_t ms) : ms(ms) { }
 
     bool hasWaited() {
-        return ms * 1000 + start <= micros();
+        return ms + start <= millis();
     }
 
 private:
-    int16_t ms;
-    unsigned long start = micros();
+    uint64_t ms;
+    uint64_t start = millis();
 };

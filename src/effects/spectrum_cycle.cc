@@ -17,7 +17,7 @@ void SpectrumCycle::init() {
     fadingIn = false;
 }
 
-int16_t SpectrumCycle::loop() {
+uint64_t SpectrumCycle::loop() {
     const double idealDelay = double(loopTime)/(255 * 3);
     //Serial.println(idealDelay);
     if (idealDelay < SLOWNESS) {
@@ -38,10 +38,10 @@ int16_t SpectrumCycle::loop() {
 
     for (uint16_t i = 0; i < region.size; i++) {
 #ifdef FADE
-        region.set(i, active, curFade);
+        region.set(i, active * curFade);
 #else
         region.set(i, active);
 #endif
     }
-    return (int16_t) (idealDelay < 1 ? 1 : idealDelay);
+    return (uint64_t) (idealDelay < 1 ? 1 : idealDelay);
 }

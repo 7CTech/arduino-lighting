@@ -12,7 +12,7 @@ void StaticColor::init() {
 
 }
 
-int16_t StaticColor::loop() {
+uint64_t StaticColor::loop() {
     for (uint16_t i = 0; i < region.size; i++) {
         region.set(i, color);
     }

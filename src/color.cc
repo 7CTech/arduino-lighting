@@ -14,6 +14,10 @@ Color::Color(uint8_t *rgb) : Color(rgb[0], rgb[1], rgb[2]) {
 
 }
 
+Color::Color(const Color &other) : Color(other.r, other.g, other.b) {
+
+}
+
 Color::Color()  {
 #if defined(ORDERED_COLORS)
     static int color_index = -1;
@@ -65,3 +69,21 @@ uint8_t &Color::operator[](uint8_t c) {
 bool Color::operator==(const Color &other) {
     return r == other.r && g == other.g && b == other.b;
 }
+
+void Color::scale(double scale) {
+    r = (uint8_t)(double(r) * scale);
+    g = (uint8_t)(double(g) * scale);
+    b = (uint8_t)(double(b) * scale);
+}
+
+void Color::operator*=(double scale) {
+    this->scale(scale);
+}
+
+Color operator*(const Color &color, double scale) {
+    Color nColor = Color(color);
+    nColor.scale(scale);
+    return nColor;
+}
+
+

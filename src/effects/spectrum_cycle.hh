@@ -12,7 +12,7 @@ class SpectrumCycle : public Effect {
 public:
     explicit SpectrumCycle(Region &region, Color base, uint16_t loopTime = 1000, uint16_t fadeTime = 0);
     void init() override;
-    int16_t loop() override;
+    uint64_t loop() override;
 private:
     const Color base;
     ColorCycling active;

@@ -8,5 +8,4 @@
 #include "pulse.hh"
 #include "spectrum_cycle.hh"
 #include "static_color.hh"
-#include "trail_basic.hh"
-#include "trails_sequential.hh"
+#include "sequential_trails.hh"

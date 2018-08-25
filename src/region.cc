@@ -3,33 +3,29 @@
 //
 
 #include <alloca.h>
-#include <WS2812.h>
+#include <FastLED.h>
 
 #include "color.hh"
 #include "region.hh"
 
-Region::Region(WS2812 &leds, uint16_t minIndex, uint16_t maxIndex) :
-        minIndex(minIndex), maxIndex(maxIndex), leds(leds), base(Color(0, 0, 0)) {
+Region::Region(CRGB* data, uint16_t minIndex, uint16_t maxIndex) :
+        minIndex(minIndex), maxIndex(maxIndex), data(data), base(Color(0, 0, 0)) {
     owner = nullptr;
 }
 
 void Region::set(const uint16_t regionIndex, const uint8_t r, const uint8_t g, const uint8_t b) {
-    if (minIndex + regionIndex > maxIndex) {
+    if (regionIndex > size - 1 || regionIndex < 0) {
+        Serial.println(F("Exceed"));
         //todo: wrapping?
         //region locks to a range, exceeding this is a no-go
         return;
     }
 
-    leds.set_crgb_at(minIndex + regionIndex, { g, r, b } );
+    data[minIndex + regionIndex].setRGB(r, g, b);
 }
 
 void Region::set(const uint16_t regionIndex, const Color &color) {
     set(regionIndex, color.r, color.g, color.b);
-}
-
-void Region::set(uint16_t regionIndex, const Color &color, double scale) {
-    set(regionIndex, static_cast<uint8_t>(scale * color.r), static_cast<uint8_t>(scale * color.g),
-        static_cast<uint8_t>(scale * color.b));
 }
 
 void Region::setBase(const uint8_t r, const uint8_t g, const uint8_t b) {

@@ -10,7 +10,7 @@ class Wave : public Effect {
 public:
     explicit Wave(Region &region, int16_t loopTime);
     void init() override;
-    int16_t loop() override;
+    uint64_t loop() override;
 private:
     const int16_t loopTime;
 };
