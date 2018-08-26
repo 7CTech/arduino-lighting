@@ -51,7 +51,7 @@ uint64_t SequentialTrails::loop() {
 
 void SequentialTrails::fadeBack(uint8_t head) {
     for (int i = head; i >= 0 && i > head - length; i--) {
-        double scale = double(i - head + count) / length;
+        double scale = double(i - head + length) / length;
         region.set(unsigned(i), color * scale);
     }
     const int16_t min = head - length;
