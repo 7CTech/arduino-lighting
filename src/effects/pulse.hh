@@ -9,13 +9,13 @@
 
 class Pulse : Effect {
     public:
-        explicit Pulse(Region &region, uint8_t steps = 60, uint16_t timeOut = 100, uint16_t timeOff = 0);
+        explicit Pulse(Region &region, uint8_t steps = 60, uint32_t timeOut = 100, uint32_t timeOff = 0);
         void init() override;
-        uint64_t loop() override;
+        uint32_t loop() override;
     private:
         uint8_t steps;
-        uint16_t timeOut;
-        uint16_t timeOff;
+        uint32_t timeOut;
+        uint32_t timeOff;
 
         int16_t step;
         Color color;

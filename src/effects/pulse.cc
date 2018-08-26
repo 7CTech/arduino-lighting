@@ -4,7 +4,7 @@
 
 #include "pulse.hh"
 
-Pulse::Pulse(Region &region, uint8_t steps, uint16_t timeOut, uint16_t timeOff) :
+Pulse::Pulse(Region &region, uint8_t steps, uint32_t timeOut, uint32_t timeOff) :
         Effect(region), steps(steps), timeOut(timeOut), timeOff(timeOff), step(-1), color(nullptr) {
 }
 
@@ -13,9 +13,9 @@ void Pulse::init() {
     color = Color();
 }
 
-uint64_t Pulse::loop() {
+uint32_t Pulse::loop() {
     double percent = ((steps - double(step)) / steps);
-    uint64_t totalDelay = 0;
+    uint32_t totalDelay = 0;
 
     for (uint16_t i = 0; i < region.size; i++) {
         region.set(i, color * percent);

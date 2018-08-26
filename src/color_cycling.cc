@@ -48,4 +48,8 @@ void ColorCycling::cycle(uint8_t increment) {
     }
 }
 
+void ColorCycling::scale(double scale) {
+    
+}
+
 

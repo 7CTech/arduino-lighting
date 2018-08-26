@@ -4,7 +4,7 @@
 
 #include "sequential_trails.hh"
 
-SequentialTrails::SequentialTrails(Region &region, Color color, uint8_t length, uint8_t count, uint16_t loopTime, bool circular) :
+SequentialTrails::SequentialTrails(Region &region, Color color, uint8_t length, uint8_t count, uint32_t loopTime, bool circular) :
         Effect(region), color(color), length(length), count(count), loopTime(loopTime), circular(circular), headDist(
         static_cast<const uint8_t>(region.size / count)) {
     if (headDist <= length) {
@@ -19,7 +19,7 @@ void SequentialTrails::init() {
     first = true;
 }
 
-uint64_t SequentialTrails::loop() {
+uint32_t SequentialTrails::loop() {
     for (int i = 0; i <= count; i++) {
         if (!circular) { //circular means non-uniform distance to ensure smooth wrapping
             if (i == 0) { //accessing [-1] is a tad hard

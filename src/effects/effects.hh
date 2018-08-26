@@ -5,7 +5,8 @@
 #pragma once
 
 #include "breathe.hh"
+#include "fill.hh"
 #include "pulse.hh"
+#include "sequential_trails.hh"
 #include "spectrum_cycle.hh"
 #include "static_color.hh"
-#include "sequential_trails.hh"

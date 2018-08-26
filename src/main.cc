@@ -26,7 +26,7 @@ Region half = Region(data, 0, 29);
 Region half2 = Region(data, 30, 60);
 
 //SpectrumCycle spectrum(half, Color(255, 0, 0), 1000, 400);
-SequentialTrails trails(full, Color(128, 0, 0), 7, 4, 30000, false);//, Color(0, 128, 0), 50);
+Fill trails(full, Color(128, 0, 0), 3000, false);//, Color(0, 128, 0), 50);
 //StaticColor staticC(half, Color(255, 0, 0), 50);
 //StaticColor staticC2(half2, Color(128, 0, 0), 50);
 pt proto1, proto2;

@@ -6,7 +6,7 @@
 
 #include "breathe.hh"
 
-Breathe::Breathe(Region &region, uint8_t steps, uint16_t timeIn, uint16_t timeOut, uint16_t timeOff) :
+Breathe::Breathe(Region &region, uint8_t steps, uint32_t timeIn, uint32_t timeOut, uint32_t timeOff) :
         Effect(region), steps(steps), timeIn(timeIn), timeOut(timeOut), timeOff(timeOff) {
     if (steps > timeIn || steps > timeOut) {
         timeIn > timeOut ? (*this).steps = static_cast<uint8_t>(timeOut) : (*this).steps = static_cast<uint8_t>(timeIn);
@@ -22,9 +22,9 @@ void Breathe::init() {
     fadingIn = true;
 }
 
-uint64_t Breathe::loop() {
+uint32_t Breathe::loop() {
     double percent;
-    uint64_t totalDelay = 0;
+    uint32_t totalDelay = 0;
     if (fadingIn) {
         percent = (double(step) / steps);
     } else {

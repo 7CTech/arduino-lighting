@@ -6,7 +6,7 @@
 
 #define FADE
 
-SpectrumCycle::SpectrumCycle(Region &region, Color baseColor, uint16_t loopTime, uint16_t fadeTime) :
+SpectrumCycle::SpectrumCycle(Region &region, Color baseColor, uint32_t loopTime, uint32_t fadeTime) :
         Effect(region), base(baseColor), active(baseColor), loopTime(loopTime), fadeTime(fadeTime), curFade(-1), fadingIn(false) {
 
 }
@@ -17,7 +17,7 @@ void SpectrumCycle::init() {
     fadingIn = false;
 }
 
-uint64_t SpectrumCycle::loop() {
+uint32_t SpectrumCycle::loop() {
     const double idealDelay = double(loopTime)/(255 * 3);
     //Serial.println(idealDelay);
     if (idealDelay < SLOWNESS) {
@@ -43,5 +43,5 @@ uint64_t SpectrumCycle::loop() {
         region.set(i, active);
 #endif
     }
-    return (uint64_t) (idealDelay < 1 ? 1 : idealDelay);
+    return (uint32_t) (idealDelay < 1 ? 1 : idealDelay);
 }

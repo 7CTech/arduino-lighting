@@ -20,7 +20,7 @@ class Effect {
 public:
     explicit Effect(Region &region);
     virtual void init() = 0;
-    virtual uint64_t loop() = 0;
+    virtual uint32_t loop() = 0;
 
     const PT_THREAD(run(struct pt *proto));
     const void kill();
