@@ -9,13 +9,15 @@
 
 class Fill : public Effect {
 public:
-    explicit Fill(Region &region, Color color, uint32_t fadeInTime, bool fadeBack);
+    explicit Fill(Region &region, Color color, uint32_t inTime, uint32_t outTime, bool fade);
     void init() override;
     uint32_t loop() override;
 private:
     const Color color;
-    const uint32_t fadeInTime;
-    const bool fadeBack;
+    const uint32_t inTime;
+    const uint32_t outTime;
+    const bool fade;
+    bool direction = true; //true for forward, false for backwards
     uint16_t head;
 };
 
