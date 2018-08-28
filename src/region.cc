@@ -8,20 +8,13 @@
 #include "color.hh"
 #include "region.hh"
 
-Region::Region(CRGB* data, uint16_t minIndex, uint16_t maxIndex) :
-        minIndex(minIndex), maxIndex(maxIndex), data(data), base(Color(0, 0, 0)) {
+Region::Region(CRGBContainer *indices, uint16_t size) :
+        size(size), indices(indices), base(Color(0, 0, 0)) {
     owner = nullptr;
 }
 
 void Region::set(const uint16_t regionIndex, const uint8_t r, const uint8_t g, const uint8_t b) {
-    if (regionIndex > size - 1 || regionIndex < 0) {
-        Serial.println(F("Exceed"));
-        //todo: wrapping?
-        //region locks to a range, exceeding this is a no-go
-        return;
-    }
-
-    data[minIndex + regionIndex].setRGB(r, g, b);
+    this->operator[](regionIndex)->setRGB(r, g, b);
 }
 
 void Region::set(const uint16_t regionIndex, const Color &color) {
@@ -63,6 +56,15 @@ bool Region::free(void *me) {
         return true;
     }
     return false;
+}
+
+Region::~Region() {
+    free(indices);
+}
+
+CRGB *Region::operator[](uint16_t n) {
+    if (n < 0 || n >= size) return nullptr;
+    return indices[n].led;
 }
 
 

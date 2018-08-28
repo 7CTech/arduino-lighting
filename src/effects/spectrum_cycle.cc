@@ -6,8 +6,8 @@
 
 #define FADE
 
-SpectrumCycle::SpectrumCycle(Region &region, Color baseColor, uint32_t loopTime, uint32_t fadeTime) :
-        Effect(region), base(baseColor), active(baseColor), loopTime(loopTime), fadeTime(fadeTime), curFade(-1), fadingIn(false) {
+SpectrumCycle::SpectrumCycle(Region &region, uint32_t loopTime, uint32_t fadeTime) :
+        Effect(region), active(base), loopTime(loopTime), fadeTime(fadeTime), curFade(-1), fadingIn(false) {
 
 }
 

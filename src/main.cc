@@ -5,12 +5,12 @@
 #include "region.hh"
 
 #include "effects/effects.hh"
+#include "base_region.hh"
 
 /*
- * This code has about rms control loop cycles. Trying to use smaller delays will have no effect.
+ * This code has about a 3ms control loop cycles. Trying to use smaller delays will have no effect.
  */
 
-#define NUM_PIXELS 60
 #define PIN 6
 
 #ifdef __CLION_IDE__
@@ -21,12 +21,25 @@
 #define NUM_LEDS 60
 CRGB data[NUM_LEDS];
 
-Region full(data, 0, 60);
-Region half = Region(data, 0, 29);
-Region half2 = Region(data, 30, 60);
+BaseRegion base(data, NUM_LEDS);
+
+bool evenSelector (int index) {
+    return index % 2 == 0;
+}
+
+bool allSelector (int index) {
+    return true;
+};
+
+Region even = base.newRegion(evenSelector);
+Region odd = base.newRegion(allSelector);
+
+//Region half = Region(data, 0, 29);
+//Region half2 = Region(data, 30, 60);
 
 //SpectrumCycle spectrum(half, Color(255, 0, 0), 1000, 400);
-Fill trails(full, Color(128, 0, 0), 3000, 3000, true);//, Color(0, 128, 0), 50);
+SpectrumCycle s(even, 1000, 0);//, Color(0, 128, 0), 50);
+Fill fill(odd, Color(255, 0, 0), 1000, 500, true);
 //StaticColor staticC(half, Color(255, 0, 0), 50);
 //StaticColor staticC2(half2, Color(128, 0, 0), 50);
 pt proto1, proto2;
@@ -37,7 +50,6 @@ pt proto1, proto2;
  */
 
 void setup() {
-
     Serial.begin(2000000);
     FastLED.addLeds<NEOPIXEL, PIN>(data, NUM_LEDS);
     //clear
@@ -48,7 +60,8 @@ void setup() {
     randomSeed(static_cast<unsigned long>(analogRead(0)));
     PT_INIT(&proto1);
     PT_INIT(&proto2);
-    trails.init();
+    s.init();
+    fill.init();
 }
 #ifdef __CLION_IDE__
 #pragma clang diagnostic pop
@@ -59,8 +72,8 @@ void setup() {
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #endif
 void loop() {
-    PT_SCHEDULE(trails.run(&proto1));
-    //PT_SCHEDULE(staticC2.run(&proto2));
+    PT_SCHEDULE(s.run(&proto1));
+    PT_SCHEDULE(fill.run(&proto2));
     FastLED.show();
 }
 #ifdef __CLION_IDE__
