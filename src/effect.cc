@@ -20,6 +20,7 @@ const PT_THREAD(Effect::run(struct pt *proto)) {
         PT_YIELD_UNTIL(proto, region.claim(this));
         PT_YIELD_UNTIL(proto, w.hasWaited());
         delay = loop();
+        //Serial.println(delay);
         w = Waiter(delay);
     }
     //region.free(this);

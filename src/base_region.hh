@@ -11,8 +11,8 @@
 class BaseRegion {
 public:
     explicit BaseRegion(CRGB *data, uint16_t size);
-    typedef bool(&Selector)(int index);
-    Region newRegion(Selector &selector);
+    typedef bool(*Selector)(uint16_t index);
+    Region newRegion(Selector selector);
     void deleteRegion(Region &region);
 
 private:

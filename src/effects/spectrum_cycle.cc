@@ -35,6 +35,7 @@ uint32_t SpectrumCycle::loop() {
     if (curFade <= 0 || curFade >= 1) {
         fadingIn = !fadingIn;
     }
+    //Serial.println(region.size);
 
     for (uint16_t i = 0; i < region.size; i++) {
 #ifdef FADE
@@ -43,5 +44,5 @@ uint32_t SpectrumCycle::loop() {
         region.set(i, active);
 #endif
     }
-    return (uint32_t) (idealDelay < 1 ? 1 : idealDelay);
+    return (uint32_t) (idealDelay < SLOWNESS ? SLOWNESS : idealDelay);
 }

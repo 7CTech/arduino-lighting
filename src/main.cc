@@ -23,11 +23,11 @@ CRGB data[NUM_LEDS];
 
 BaseRegion base(data, NUM_LEDS);
 
-bool evenSelector (int index) {
+bool evenSelector (uint16_t index) {
     return index % 2 == 0;
 }
 
-bool allSelector (int index) {
+bool allSelector (uint16_t index) {
     return true;
 };
 
@@ -62,6 +62,7 @@ void setup() {
     PT_INIT(&proto2);
     s.init();
     fill.init();
+    Serial.println(F("INIT"));
 }
 #ifdef __CLION_IDE__
 #pragma clang diagnostic pop
