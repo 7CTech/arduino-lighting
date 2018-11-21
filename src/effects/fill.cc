@@ -43,7 +43,7 @@ uint32_t Fill::loop() {
                 head = region.size - 1;
             }
         }
-        Serial.println(head);
+        //Serial.println(region[14]->r);
         for (uint16_t i = head; i >= 0 && i < 65534; i--) { //there is some really really weird bug here
             //Serial.println(i);
             double percent = fade ? (double(region.size - (head - i)) / region.size) : 1;

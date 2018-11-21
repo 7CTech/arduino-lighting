@@ -22,8 +22,7 @@ Region BaseRegion::newRegion(Selector selector) {
             count++;
         }
     }
-    auto *passData = (CRGBContainer *)malloc(sizeof(CRGBContainer *) * count); //doing two for loops is probably faster than loads of reallocs
-    Serial.println("done 1");
+    auto *passData = (CRGBContainer *)malloc(sizeof(CRGBContainer) * count); //doing two for loops is probably faster than loads of reallocs
     uint16_t index = 0;
     for (uint16_t i = 0; i < size; i++) {
         if (!claimed[i] && selector(i)) {

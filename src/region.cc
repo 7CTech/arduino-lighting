@@ -14,13 +14,12 @@ Region::Region(CRGBContainer *indices, uint16_t size) :
 }
 
 void Region::set(const uint16_t regionIndex, const uint8_t r, const uint8_t g, const uint8_t b) {
-    Serial.println(F("set"));
+    Serial.println(regionIndex);
+    Serial.println(size);
     this->operator[](regionIndex)->setRGB(r, g, b);
-    //Serial.println(F("set"));
 }
 
 void Region::set(const uint16_t regionIndex, const Color &color) {
-    Serial.println(F("set"));
     set(regionIndex, color.r, color.g, color.b);
 }
 
@@ -67,7 +66,8 @@ Region::~Region() {
 
 CRGB *Region::operator[](uint16_t n) {
     if (n < 0 || n >= size) return nullptr;
-    return indices[n].led;
+    CRGB *led = indices[n].led;
+    return led;
 }
 
 

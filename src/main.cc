@@ -50,7 +50,7 @@ pt proto1, proto2;
  */
 
 void setup() {
-    Serial.begin(2000000);
+    Serial.begin(38400);
     FastLED.addLeds<NEOPIXEL, PIN>(data, NUM_LEDS);
     //clear
     for (auto &i : data) {

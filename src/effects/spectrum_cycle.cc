@@ -4,7 +4,7 @@
 #include "spectrum_cycle.hh"
 #include <global.hh>
 
-#define FADE
+#undef FADE
 
 SpectrumCycle::SpectrumCycle(Region &region, uint32_t loopTime, uint32_t fadeTime) :
         Effect(region), active(base), loopTime(loopTime), fadeTime(fadeTime), curFade(-1), fadingIn(false) {
@@ -25,6 +25,13 @@ uint32_t SpectrumCycle::loop() {
     } else {
         active.cycle();
     }
+    Serial.print(F("r: "));
+    Serial.print(active.r);
+    Serial.print(F("; g: "));
+    Serial.print(active.g);
+    Serial.print(F("; b: "));
+    Serial.print(active.b);
+    Serial.println(F(";"));
     if (fadingIn) {
         curFade += (double(SLOWNESS)/fadeTime);
         if (curFade > 1) curFade = 1;
@@ -41,6 +48,7 @@ uint32_t SpectrumCycle::loop() {
 #ifdef FADE
         region.set(i, active * curFade);
 #else
+        //Serial.println(i);
         region.set(i, active);
 #endif
     }

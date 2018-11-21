@@ -23,7 +23,7 @@ class Region {
 public:
     const uint16_t size;
 
-    CRGB *operator[](uint16_t  n);
+    CRGB *operator[](uint16_t n);
 
     void set(uint16_t regionIndex, uint8_t r, uint8_t g, uint8_t b);
     void set(uint16_t regionIndex, const Color &color);
