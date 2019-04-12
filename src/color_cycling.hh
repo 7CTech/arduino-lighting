@@ -13,6 +13,7 @@ public:
     void cycle(); //moves this color forward by one increment. Call this repeatedly to actually cycle
 protected:
     void cycle(uint8_t increment);
+    void cyclePercent(uint8_t percent);
     void scale(double scale);
 private:
     uint8_t decColor;

@@ -8,7 +8,7 @@
 
 class StaticColor : public Effect {
 public:
-    explicit StaticColor(Region &region, Color color, uint32_t delay);
+    explicit StaticColor(Region &region, Color base, uint32_t delay);
 
     void init() override;
     uint32_t loop() override;

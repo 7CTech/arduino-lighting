@@ -14,8 +14,6 @@ Region::Region(CRGBContainer *indices, uint16_t size) :
 }
 
 void Region::set(const uint16_t regionIndex, const uint8_t r, const uint8_t g, const uint8_t b) {
-    Serial.println(regionIndex);
-    Serial.println(size);
     this->operator[](regionIndex)->setRGB(r, g, b);
 }
 

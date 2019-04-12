@@ -48,6 +48,11 @@ void ColorCycling::cycle(uint8_t increment) {
     }
 }
 
+void ColorCycling::cyclePercent(uint8_t percent) {
+    cycle(percent * 255);
+
+}
+
 void ColorCycling::scale(double scale) {
     
 }

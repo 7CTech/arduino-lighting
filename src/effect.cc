@@ -15,7 +15,7 @@ Effect::Effect(Region &region) : region(region), w(Waiter(0)) {
 #pragma ide diagnostic ignored "missing_default_case"
 #endif
 const PT_THREAD(Effect::run(struct pt *proto)) {
-    PT_BEGIN(proto);
+    PT_BEGIN(proto)
     while (delay > 0) {
         PT_YIELD_UNTIL(proto, region.claim(this));
         PT_YIELD_UNTIL(proto, w.hasWaited());
@@ -24,7 +24,7 @@ const PT_THREAD(Effect::run(struct pt *proto)) {
         w = Waiter(delay);
     }
     //region.free(this);
-    PT_END(proto);
+    PT_END(proto)
 
 }
 #ifdef __CLION_IDE__
