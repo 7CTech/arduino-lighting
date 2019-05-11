@@ -19,7 +19,15 @@
 class Effect {
 public:
     explicit Effect(Region &region);
+    /**
+     * Used for first time internal initialisation. Only called once
+     * This function is not proceeded by .show() - do not use it to set LEDs
+     */
     virtual void init() = 0;
+    /**
+     * The main looper function. Called at 1000/delay(ms) frequency
+     * @return the delay time in ms
+     */
     virtual uint32_t loop() = 0;
 
     const PT_THREAD(run(struct pt *proto));

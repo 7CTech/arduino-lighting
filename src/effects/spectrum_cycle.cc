@@ -25,13 +25,6 @@ uint32_t SpectrumCycle::loop() {
     } else {
         active.cycle();
     }
-    Serial.print(F("r: "));
-    Serial.print(active.r);
-    Serial.print(F("; g: "));
-    Serial.print(active.g);
-    Serial.print(F("; b: "));
-    Serial.print(active.b);
-    Serial.println(F(";"));
     if (fadingIn) {
         curFade += (double(SLOWNESS)/fadeTime);
         if (curFade > 1) curFade = 1;

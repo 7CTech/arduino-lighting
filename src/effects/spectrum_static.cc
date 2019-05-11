@@ -4,7 +4,7 @@
 
 #include "spectrum_static.hh"
 
-SpectrumStatic::SpectrumStatic(Region &region, Color base, uint32_t delay) : Effect(region), base(base), delay(delay) {
+SpectrumStatic::SpectrumStatic(Region &region, const Color &base, uint32_t delay) : Effect(region), active(base), delay(delay) {
 
 }
 
@@ -13,8 +13,12 @@ void SpectrumStatic::init() {
 }
 
 uint32_t SpectrumStatic::loop() {
-    for (uint16_t i = 0; i < region.size; i++) {
-        region.set(i, base * i/region.size);
+    if (first) {
+        for (uint16_t i = 0; i < region.size; i++) {
+            region.set(i, active);
+            active.cyclePercent(1.0/region.size);
+        }
+        first = false;
     }
     return delay;
 }

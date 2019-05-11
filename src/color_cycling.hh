@@ -11,10 +11,12 @@ public:
     ColorCycling(const Color &base);
 
     void cycle(); //moves this color forward by one increment. Call this repeatedly to actually cycle
+    void cycle(uint8_t increment); //alternate implementation - cycle multiple colors at once
+    void cyclePercent(double percent); //alternate implementation - cycle a percentage
+
+    const static int TOTAL_COLORS = 765;
 protected:
-    void cycle(uint8_t increment);
-    void cyclePercent(uint8_t percent);
-    void scale(double scale);
+    void scale(double scale); //todo
 private:
     uint8_t decColor;
     uint8_t incColor;

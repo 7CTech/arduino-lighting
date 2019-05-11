@@ -2,7 +2,9 @@
 #include <Arduino.h>
 #include <pt.h>
 #include <effects/christmas.hh>
-#include <EEPROM.h>
+//#include <EEPROM.h>
+#include <effects/spectrum_static.hh>
+#include <effects/spectrum_wave.hh>
 
 #include "region.hh"
 
@@ -20,9 +22,9 @@
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #endif
 
-int ledCount = 180;
+//int ledCount = 30;
 
-const int numLeds = EEPROM.read(0);
+const int numLeds = 60;//EEPROM.read(0);
 
 CRGB *data = (CRGB *)malloc(sizeof(CRGB) * numLeds);
 
@@ -38,8 +40,9 @@ bool allSelector (uint16_t index) {
 
 Region all = base.newRegion(allSelector);
 pt readProto, proto1, proto2;
-
-StaticColor staticColor(all, Color(unsigned(255), unsigned(0), unsigned(0)), unsigned(50));
+//StaticColor spectrum(all, Color(unsigned(255), unsigned(0), unsigned(0)), 50);
+//SpectrumCycle spectrum(all);
+SpectrumStatic spectrum(all, Color(unsigned(255), unsigned(0), unsigned(0)), unsigned(4000));
 
 bool readInternal(uint8_t **buffer, uint8_t *index) {
     if (int raw = Serial.read() == -1) {
@@ -105,7 +108,7 @@ void setup() {
     PT_INIT(&readProto)
     PT_INIT(&proto1)
     PT_INIT(&proto2)
-    staticColor.init();
+    spectrum.init();
 }
 #ifdef __CLION_IDE__
 #pragma clang diagnostic pop
@@ -117,7 +120,7 @@ void setup() {
 #endif
 void loop() {
     //PT_SCHEDULE(readThread(&readProto));
-    PT_SCHEDULE(staticColor.run(&proto1));
+    PT_SCHEDULE(spectrum.run(&proto1));
     //PT_SCHEDULE(fill.run(&proto2));
     FastLED.show();
 }
