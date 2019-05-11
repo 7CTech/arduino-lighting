@@ -45,3 +45,33 @@ private:
     bool claim(void *me);
     bool free(void *me);
 };
+
+class RegionState {
+    explicit RegionState(Region &region) : size(region.size), region(region) {
+
+    }
+
+public:
+    const uint16_t size;
+protected:
+    Region &region;
+};
+
+class MutableRegionState : RegionState {
+public:
+    const CRGB *get(uint16_t n) {
+        return region[n];
+    }
+    const void set(uint16_t n, uint8_t r, uint8_t g, uint8_t b) {
+        region.set(n, r, g, b);
+    }
+    const void set(uint16_t n, const CRGB &data) {
+        region.set(n, data.r, data.g, data.b);
+    }
+    template <typename T>
+    void all(const T &caller, const CRGB(*f)(const T &caller, const CRGB *)) {
+        for (uint16_t i = 0; i < size; i++) {
+            set(i, f(caller, get(i)));
+        }
+    }
+};

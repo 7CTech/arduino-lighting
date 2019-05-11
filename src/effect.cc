@@ -31,6 +31,11 @@ const PT_THREAD(Effect::run(struct pt *proto)) {
 #pragma clang diagnostic pop
 #endif
 
+const Effect &Effect::addModifier(Modifier &modifier) {
+
+    return *this;
+}
+
 const void Effect::kill() {
     region.free(this);
 }

@@ -42,7 +42,7 @@ Region all = base.newRegion(allSelector);
 pt readProto, proto1, proto2;
 //StaticColor spectrum(all, Color(unsigned(255), unsigned(0), unsigned(0)), 50);
 //SpectrumCycle spectrum(all);
-SpectrumStatic spectrum(all, Color(unsigned(255), unsigned(0), unsigned(0)), unsigned(4000));
+SpectrumWave spectrum(all, Color(unsigned(255), unsigned(0), unsigned(0)), unsigned(1500));
 
 bool readInternal(uint8_t **buffer, uint8_t *index) {
     if (int raw = Serial.read() == -1) {
