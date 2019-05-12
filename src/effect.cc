@@ -20,10 +20,9 @@ const PT_THREAD(Effect::run(struct pt *proto)) {
         PT_YIELD_UNTIL(proto, region.claim(this));
         PT_YIELD_UNTIL(proto, w.hasWaited());
         delay = loop();
-        //Serial.println(delay);
         w = Waiter(delay);
     }
-    //region.free(this);
+    region.free(this);
     PT_END(proto)
 
 }
@@ -32,9 +31,13 @@ const PT_THREAD(Effect::run(struct pt *proto)) {
 #endif
 
 const Effect &Effect::addModifier(Modifier &modifier) {
-
     return *this;
 }
+
+const Effect &Effect::removeModifier(Modifier &modifier) {
+    return *this;
+}
+
 
 const void Effect::kill() {
     region.free(this);

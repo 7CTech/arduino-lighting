@@ -12,7 +12,6 @@ SequentialTrails::SequentialTrails(Region &region, Color color, uint8_t length, 
     }
     memset(heads, 0, (count + 1) * sizeof(uint8_t)); //clear buffer
     first = true;
-
 }
 
 void SequentialTrails::init() {

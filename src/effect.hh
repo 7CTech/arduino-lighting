@@ -44,6 +44,13 @@ public:
     const Effect &addModifier(Modifier &modifier);
 
     /**
+     * Add a modifier to this effect
+     * @param modifier the modifier to add
+     * @return this
+     */
+    const Effect &removeModifier(Modifier &modifier);
+
+    /**
      * The main running code. This deals with waiting and locking, and calls the loop function as necessary
      * @param proto
      * @return
